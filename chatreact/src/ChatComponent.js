@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import ChatBubble from './ChatBubble'; // Adjust the path based on your project structure
 
 const ChatComponent = () => {
   const [inputText, setInputText] = useState('');
@@ -27,8 +28,16 @@ const ChatComponent = () => {
   return (
     <Paper elevation={3} style={{ padding: '20px', maxWidth: '400px', margin: 'auto', marginTop: '50px' }}>
       <Typography variant="h5" gutterBottom>
-        Chat Component
+        Chat con Ia 
       </Typography>
+      <div style={{ maxHeight: '300px', overflowY: 'auto', marginBottom: '10px' }}>
+        {chatHistory.map((chat, index) => (
+          <div key={index}>
+            <ChatBubble message={`Tú: ${chat.message}`} isUser={true} />
+            <ChatBubble message={`Respuesta: ${chat.response}`} isUser={false} />
+          </div>
+        ))}
+      </div>
       <TextField
         fullWidth
         label="Escribe tu mensaje..."
@@ -40,16 +49,6 @@ const ChatComponent = () => {
       <Button variant="contained" color="primary" onClick={handleSendClick}>
         Enviar
       </Button>
-      {chatHistory.map((chat, index) => (
-        <div key={index} style={{ marginTop: '20px' }}>
-          <Typography variant="body1">
-            Tú: {chat.message}
-          </Typography>
-          <Typography variant="body1">
-            Respuesta: {chat.response}
-          </Typography>
-        </div>
-      ))}
     </Paper>
   );
 };
